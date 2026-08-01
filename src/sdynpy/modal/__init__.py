@@ -23,3 +23,13 @@ from .sdynpy_modeshape import compute_residues, compute_shapes
 from .sdynpy_signal_processing_gui import SignalProcessingGUI
 from .sdynpy_ccmif import ColoredCMIF
 from ..doc.sdynpy_modal_test import read_modal_fit_data, ModalTest
+from .sdynpy_macm import (
+    modal_transformation_matrix,
+    modal_amplitude_contribution_map,
+    project_modal_response,
+    modal_response_from_force,
+    compute_modal_fine,
+    effective_mode_count,
+    plot_macm,
+    ModalFineResult,
+)
