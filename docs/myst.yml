@@ -21,6 +21,8 @@ project:
     CPSD: Cross-Power Spectral Density
     FEM: Finite Element Model
     FFT: Fast Fourier Transform
+    FINE: Fixture Neutralization
+    FRAC: Frequency Response Assurance Criterion
     FRF: Frequency Response Function
     GUI: Graphical User Interface
     ICP: Integrated Circuit Piezoelectric
@@ -29,6 +31,7 @@ project:
     IFFT: Inverse Fast Fourier Transform
     IP: Internet Protocol
     JSON: Javascript Object Notation
+    MACM: Modal Amplitude Contribution Map
     MIMO: Multiple Input, Multiple Output
     ReST: Representational State Transfer
     RMS: Root-Mean-Square
@@ -59,6 +62,7 @@ project:
         - file: book/examples/mimo_random_vibration_control.ipynb
         - file: book/examples/virtual_point_transformation.ipynb
         - file: book/examples/shaker_simulation.ipynb
+        - file: book/examples/modal_fine_macm.ipynb
     - title: Modal Tutorials
       children:
         - file: book/modal_tutorials/Modal_01_What_is_Modal_Analysis.ipynb
