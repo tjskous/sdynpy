@@ -20,3 +20,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>."""
 from . import beam_airplane
 from . import beam_plate
 from . import frame_wing
+from . import two_beam_modal_fine
