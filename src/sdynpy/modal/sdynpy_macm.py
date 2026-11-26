@@ -362,7 +362,7 @@ def effective_mode_count(contributions, threshold=0.95):
 
 
 def plot_macm(macm, field_frequencies, lab_frequencies, frequency_index=None, ax=None,
-              hide_below=None):
+              hide_below=0.001, cmap='jet'):
     """Scatter plot of a MACM slice (or the full MACM summed over frequency)
     in the style of Figs. 2, 12, and 13 of Matthews et al. (2026): one point
     per (laboratory mode, field mode) pair, with marker size proportional to
@@ -384,13 +384,16 @@ def plot_macm(macm, field_frequencies, lab_frequencies, frequency_index=None, ax
     hide_below : float, optional
         Omit points whose magnitude is below this fraction (0-1) of the
         largest magnitude in the plotted slice, decluttering the plot.
-        Default `None` plots every point. This matches Brandon Zwink's own
-        MATLAB plotting code (`plotmat_3d.m`), which drops points below
-        0.001 (0.1%) of the global maximum before rendering -- pass
-        `hide_below=0.001` to match that convention exactly. Marker size and
+        Default is 0.001 (0.1%), matching Brandon Zwink's own MATLAB
+        plotting code (`plotmat_3d.m`), which drops points below 0.1% of
+        the global maximum before rendering. Pass `None` to plot every
+        point. Marker size and
         color are otherwise unaffected: both this module and Zwink's code
         scale marker size by the (unfiltered) global maximum magnitude and
         pass raw, unscaled magnitude as the color value.
+    cmap : str or Colormap, optional
+        Matplotlib colormap. Default is ``'jet'``, matching the paper's
+        figures and Zwink's MATLAB code.
 
     Returns
     -------
@@ -416,7 +419,7 @@ def plot_macm(macm, field_frequencies, lab_frequencies, frequency_index=None, ax
         keep = colors >= hide_below * max_magnitude
         lab_points, field_points, sizes, colors = (
             lab_points[keep], field_points[keep], sizes[keep], colors[keep])
-    scatter = ax.scatter(field_points, lab_points, s=sizes, c=colors, cmap='viridis')
+    scatter = ax.scatter(field_points, lab_points, s=sizes, c=colors, cmap=cmap)
     ax.set_xlabel('Field Environment System Mode')
     ax.set_ylabel('Laboratory Test System Mode')
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))

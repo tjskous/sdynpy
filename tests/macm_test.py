@@ -485,8 +485,8 @@ def test_plot_macm_hide_below_declutters_small_points():
     """`hide_below` should drop points under the given fraction of the
     plotted slice's max magnitude, matching Zwink's own MATLAB plotting
     code (`plotmat_3d.m`), which discards points below 0.1% of the global
-    maximum before rendering. Default (`hide_below=None`) must still plot
-    every point.
+    maximum before rendering. That 0.1% floor is the default; `None` must
+    plot every point.
     """
     field_freqs = np.array([10.0, 20.0])
     lab_freqs = np.array([12.0, 22.0])
@@ -494,8 +494,15 @@ def test_plot_macm_hide_below_declutters_small_points():
     # first is >= 2% of the max (100), the rest should be dropped.
     macm = np.array([[[100.0], [1.0]], [[0.05], [0.0]]], dtype=complex)
 
-    ax_full = plot_macm(macm, field_freqs, lab_freqs)
+    ax_full = plot_macm(macm, field_freqs, lab_freqs, hide_below=None)
     assert ax_full.collections[0].get_offsets().shape[0] == 4
+
+    # Default is Zwink's 0.1% floor: drops 0.05 (0.05%) and 0.0, keeps 100 and 1.
+    ax_default = plot_macm(macm, field_freqs, lab_freqs)
+    assert ax_default.collections[0].get_offsets().shape[0] == 2
+    assert ax_default.collections[0].get_cmap().name == 'jet'
+    ax_cmap = plot_macm(macm, field_freqs, lab_freqs, cmap='viridis')
+    assert ax_cmap.collections[0].get_cmap().name == 'viridis'
 
     ax_declutter = plot_macm(macm, field_freqs, lab_freqs, hide_below=0.02)
     assert ax_declutter.collections[0].get_offsets().shape[0] == 1
